@@ -1,64 +1,65 @@
 import React from 'react'
-import { useState } from 'react';
-import { formData } from './formData';
+import { useState, useEffect } from 'react';
 
-
-const getFormattedPrice = (price) => `${price.toFixed(0)}€`;
 
 function App() {
-  const [checkedState, setCheckedState] = useState(
-    new Array(formData.length).fill(false)
-  );
+  const [formData, setFormData] = useState(
+    {web: false, seo: false, ads: false}
+)
 
-  const [total, setTotal] = useState(0);
-
-  const handleOnChange = (position) => {
-    const updatedCheckedState = checkedState.map((item, index) =>
-      index === position ? !item : item
-    );
-
-    setCheckedState(updatedCheckedState);
-
-    const totalPrice = updatedCheckedState.reduce(
-      (sum, currentState, index) => {
-        if (currentState === true) {
-          return sum + formData[index].price;
+function handleChange(event) {
+    const {name, checked} = event.target;
+    setFormData(prevFormData => {
+        return {
+            ...prevFormData,
+            [name]: checked
         }
-        return sum;
-      },
-      0
-    );
+    })
+}
 
-    setTotal(totalPrice);
-  };
+const [totalPrice, setTotalPrice] = useState(0); 
 
-  return (
-    <div>
-      <p>What do you want to do?</p>
-      <p>
-        {formData.map(({name}, index) => {
-          return (
-            <div>
-              <input
-                type="checkbox"
-                id={index}
-                name={name}
-                value={name}
-                checked={checkedState[index]}
-                onChange={() => handleOnChange(index)}
-              />
-              <label htmlFor={index}>{name}</label>
-              <br />
-              <br/>
-            </div> 
-          );
-        })}
-      </p>
-      <div>
-        <p>Price: {getFormattedPrice(total)}</p>
-      </div>
-    </div>
-  );
+useEffect(() => {
+    const price = (formData.web ? 500 : 0) + (formData.seo ? 300 : 0) + (formData.ads ? 200 : 0); 
+    return setTotalPrice(prevTotalPrice => prevTotalPrice = price); 
+}, [formData.web, formData.seo, formData.ads]);
+
+return (
+    <form>
+        <h4>What do you want to do?</h4>
+        <input 
+            type="checkbox" 
+            id='web'
+            checked={formData.web}
+            onChange={handleChange}
+            name='web'
+        />
+        <label htmlFor="web">A website (500€)</label>
+        <br />
+        <br />
+        <input 
+            type="checkbox" 
+            id='seo'
+            checked={formData.seo}
+            onChange={handleChange}
+            name='seo'
+        />
+        <label htmlFor="seo">A SEO consultancy (300€)</label>
+        <br />
+        <br />
+        <input 
+            type="checkbox" 
+            id='ads'
+            checked={formData.ads}
+            onChange={handleChange}
+            name='ads'
+        />
+        <label htmlFor="ads">A Google Ads campaign (200€)</label>
+        <br />
+        <br />
+        <p>Total price: {totalPrice}€</p>
+    </form>
+)
 }
 
 export default App;
