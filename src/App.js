@@ -7,19 +7,17 @@ import Panell from './components/Panell';
 function App() {
   const [formData, setFormData] = useState(
     {web: false, seo: false, ads: false, pages: 1, languages: 1}
-  )
+  ); 
+
+  const [totalPrice, setTotalPrice] = useState(0); 
 
   function handleChange(event) {
     const {name, type, value, checked} = event.target;
-    setFormData(prevFormData => {
-        return {
-            ...prevFormData,
-            [name]: type === 'checkbox' ? checked : value
-        }
-    })
-  } 
-
-  const [totalPrice, setTotalPrice] = useState(0); 
+    setFormData(prevFormData => ({
+      ...prevFormData,
+      [name]: type === 'checkbox' ? checked : value 
+    }));
+  }  
 
   useEffect(() => {
     const price = (formData.web && (500 + (formData.pages * formData.languages * 30))) + (formData.seo && 300) + (formData.ads && 200 ); 
@@ -42,8 +40,22 @@ function App() {
         <div>
           {formData.web && 
             <PanellBox>
-              <Panell text='Number of pages' name='pages' onChange={handleChange} value={formData.pages}/>
-              <Panell text='Number of languages' name='languages' onChange={handleChange} value={formData.languages}/>
+              <Panell 
+                text='Number of pages' 
+                name='pages' 
+                onChange={handleChange} 
+                value={formData.pages} 
+                onClickAdd={() => setFormData(prevFormData => ({ ...prevFormData, pages: prevFormData.pages + 1}))} 
+                onClickSub={() => formData.pages > 1 && setFormData(prevFormData => ({ ...prevFormData, pages: prevFormData.pages - 1}))}
+              />
+              <Panell 
+                text='Number of languages' 
+                name='languages' 
+                onChange={handleChange} 
+                value={formData.languages}
+                onClickAdd={() => setFormData(prevFormData => ({ ...prevFormData, languages: prevFormData.languages + 1}))} 
+                onClickSub={() => formData.languages > 1 && setFormData(prevFormData => ({ ...prevFormData, languages: prevFormData.languages - 1}))}
+              />
             </PanellBox>
           }
         </div>
