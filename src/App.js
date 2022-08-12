@@ -41,7 +41,7 @@ function App() {
           {formData.web && 
             <PanellBox>
               <Panell 
-                text='Number of pages' 
+                text='Total number of pages' 
                 name='pages' 
                 onChange={handleChange} 
                 value={formData.pages} 

@@ -5,24 +5,27 @@ export const PanellBox = styled.div`
   border-color: black; 
   border-width: 2px;
   border-radius: 8px; 
-  width: 400px; 
-  padding: 25px 10px; 
+  width: 300px; 
+  padding: 20px 2px; 
   margin-bottom: 20px;
   text-align: center;
-
-`
-export const TextBox = styled.label`
-  margin: 5px; 
-`
-export const Box = styled.input`
-  margin: 5px;
-  width: 30px; 
-  border: none; 
   
 `
+export const TextBox = styled.label`
+  margin: 10px; 
+`
+export const Box = styled.input`
+  margin: 10px;
+  width: 30px; 
+  border: none; 
+  font-size: 15px;
+`
 export const Button = styled.button`
-  background-color: red; 
-  width: 20px;
+  background-color: #DF7861; 
+  color: white; 
+  width: 30px;
   border: none;
-  border-radius: 5px;  
+  border-radius: 5px; 
+  cursor:pointer; 
+  font-size: 25px; 
 `
