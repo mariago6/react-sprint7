@@ -5,7 +5,8 @@ import Panell from './components/Panell';
 
 
 function App() {
-  const [formData, setFormData] = useState(
+  const [formData, setFormData] = useState( 
+    JSON.parse(window.localStorage.getItem('count')) ||
     {web: false, seo: false, ads: false, pages: 1, languages: 1}
   ); 
 
@@ -21,8 +22,9 @@ function App() {
 
   useEffect(() => {
     const price = (formData.web && (500 + (formData.pages * formData.languages * 30))) + (formData.seo && 300) + (formData.ads && 200 ); 
-    return setTotalPrice(prevTotalPrice => prevTotalPrice = price); 
-  }, [formData.web, formData.seo, formData.ads, formData.pages, formData.languages]);
+    setTotalPrice(prevTotalPrice => prevTotalPrice = price); 
+    window.localStorage.setItem("count", JSON.stringify(formData));
+  }, [formData]);
 
   return (
     <form>
