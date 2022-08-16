@@ -6,7 +6,6 @@ function Panell(props){
     <div className='panell'>
       <TextBox>{props.text}</TextBox>
       <Button type='button' onClick={props.onClickSub}>-</Button>
-      
       <Box
         type='text'
         onChange={props.onChange}

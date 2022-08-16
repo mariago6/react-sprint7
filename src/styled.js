@@ -5,7 +5,7 @@ export const PanellBox = styled.div`
   border-color: black; 
   border-width: 2px;
   border-radius: 8px; 
-  width: 450px; 
+  width: 400px; 
   padding: 20px 2px; 
   margin-bottom: 20px;
   text-align: center;
@@ -57,14 +57,13 @@ export const NavLi = styled.li`
 `
 
 export const TextTotalPrice = styled.p`
-  font-size: 18px;
-  border: solid;
-  border-width: 5px;
-  border-color: #DF7861; 
-  border-radius: 8px; 
-  width: 140px;
+  font-size: 20px;
+  //color: #DF7861; 
+  font-weight: bolder; 
+  width: 160px;
   padding: 10px;
-  background-color: white;
+  background-color: white; 
+  margin-left: 35px;
 `
 
 export const WelcomeBox = styled.div`
@@ -120,7 +119,7 @@ export const PopupContainer = styled.div`
 
 export const PopupBox = styled.div`
   position: fixed;
-  top: 55%;
+  top: 50%;
   left: 13%;
   width: 70%;
   height: auto;
@@ -132,4 +131,48 @@ export const PopupBox = styled.div`
   border-radius: 20px;
   overflow: auto;
 `
+export const BudgetButton = styled.button `
+  align-items: center;
+  background-color: #DF7861;
+  border: solid;
+  border-radius: 100px;
+  border-color: #F5C7A9; 
+  color: #ffffff;
+  cursor: pointer;
+  display: inline-flex;
+  font-size: 12;
+  font-weight: 600;
+  max-width: 480px;
+  min-height: 40px;
+  min-width: 0px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-left: 50px; 
+  text-align: center;
+  transition: background-color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, box-shadow 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s;
 
+  &:hover {
+    background-color: #F5C7A9;
+  }
+}
+`
+export const Table = styled.table`
+  border: 2px solid #DF7861;
+  width: 800px;
+  height: 200px;
+`
+
+
+export const TableStructure = styled.tr`
+
+`
+
+export const TableTitles = styled.th`
+  border-bottom: 2px solid #DF7861;
+  color: #DF7861; 
+  font-size: 20px; 
+`
+
+export const TableText = styled.td`
+  text-align: center;
+`
