@@ -1,14 +1,15 @@
 import React from "react";
 import {Link} from 'react-router-dom'
+import {Nav, NavUl, NavLi} from '../styled'
 
 function Navbar() {
   return(
-    <div className="navbar">
-      <ul className="nav-links">
-        <Link to="/welcome">Welcome</Link>
-        <Link to="/app">About</Link>
-      </ul>
-    </div>
+    <Nav>
+      <NavUl>
+        <NavLi><Link className="link" to="/"> Welcome </Link></NavLi>
+        <NavLi><Link className="link" to="/app"> Services </Link></NavLi>
+      </NavUl>
+    </Nav>
   )
 }
 
