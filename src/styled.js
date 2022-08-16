@@ -5,7 +5,7 @@ export const PanellBox = styled.div`
   border-color: black; 
   border-width: 2px;
   border-radius: 8px; 
-  width: 300px; 
+  width: 450px; 
   padding: 20px 2px; 
   margin-bottom: 20px;
   text-align: center;
@@ -18,11 +18,13 @@ export const Box = styled.input`
   width: 30px; 
   border: none; 
   font-size: 15px;
+  text-align: center;
 `
 export const Button = styled.button`
   background-color: #DF7861; 
   color: white; 
   width: 30px;
+  height: 30px;
   border: none;
   border-radius: 5px; 
   cursor:pointer; 
@@ -89,5 +91,45 @@ export const WelcomeImage = styled.img`
   width: 40%;
   height: 40%;
   border-radius: 8px; 
+`
+
+export const InfoButton = styled.input`
+  margin: 5px; 
+  border: none;
+  border-radius: 50%; 
+  color: white; 
+  background-color: #CFD2CF; 
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  font-size: 11;
+  color: white;
+  text-align: center;
+  font-weight: bold;
+    
+`
+
+export const PopupContainer = styled.div`
+  position: fixed;
+  background: #00000050;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+`
+
+export const PopupBox = styled.div`
+  position: fixed;
+  top: 55%;
+  left: 13%;
+  width: 70%;
+  height: auto;
+  max-height: 70vh;
+  background: #fff;
+  border-radius: 4px;
+  padding: 20px;
+  border: 2px solid black;
+  border-radius: 20px;
+  overflow: auto;
 `
 

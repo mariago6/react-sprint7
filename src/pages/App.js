@@ -46,20 +46,22 @@ function App() {
           {formData.web && 
             <PanellBox>
               <Panell 
-                text='Total number of pages' 
+                text='Total number of pages&nbsp; &nbsp; &nbsp; &nbsp;' 
                 name='pages' 
                 onChange={handleChange} 
                 value={formData.pages} 
                 onClickAdd={() => setFormData(prevFormData => ({ ...prevFormData, pages: prevFormData.pages + 1}))} 
                 onClickSub={() => formData.pages > 1 && setFormData(prevFormData => ({ ...prevFormData, pages: prevFormData.pages - 1}))}
+                textInformation='This component indicates the number of pages that your website will have. The current number of pages is: '
               />
               <Panell 
-                text='Number of languages' 
+                text='Total number of languages ' 
                 name='languages' 
                 onChange={handleChange} 
                 value={formData.languages}
                 onClickAdd={() => setFormData(prevFormData => ({ ...prevFormData, languages: prevFormData.languages + 1}))} 
                 onClickSub={() => formData.languages > 1 && setFormData(prevFormData => ({ ...prevFormData, languages: prevFormData.languages - 1}))}
+                textInformation='This component indicates the number of languages that your website will have. The current number of languages is: '
               />
             </PanellBox>
           }

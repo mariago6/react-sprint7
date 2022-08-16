@@ -21,4 +21,8 @@ code {
   margin: 30px; 
 }
 
+.panell {
+  display: flex;
+}
+
 
