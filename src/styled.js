@@ -203,3 +203,17 @@ export const ButtonReset = styled.button`
   text-align: center;
   font-weight: bold;
 `
+
+export const KeywordFilter = styled.input`
+  margin-bottom: 5px; 
+  border: solid 2px; 
+  border-radius: 10px;
+  border-color: #CFD2CF;
+  padding-left: 10px; 
+  width: 170px;
+
+  &:focus {
+    outline: none;
+    border-color: #DF7861;
+  }
+`

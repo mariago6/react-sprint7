@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
-import {PanellBox, TextTotalPrice, BudgetButton, Table, TableTitles, ButtonOrder, ButtonReset} from '../styled'
+import {PanellBox, TextTotalPrice, BudgetButton, Table, TableTitles, ButtonOrder, ButtonReset, KeywordFilter} from '../styled'
 import Panell from '../components/Panell';
 import Navbar from '../components/Navbar';
 import TableBudget from '../components/TableBudget';
@@ -15,6 +15,8 @@ function App() {
   const [totalPrice, setTotalPrice] = useState(0); 
   const [showBudget, setShowBadget] = useState(false); 
   const [totalBudget, setTotalBudget] = useState([]); 
+  const [filterTotalBudget, setFilterTotalBudget] = useState([]);  
+  const [keywordFilter, setKeywordFilter] = useState('');
 
   function handleChange(event) {
     const {name, type, value, checked} = event.target;
@@ -59,17 +61,35 @@ function App() {
     setTotalBudget(orderBudgetList); 
   }
 
-  const newTotalBudget = totalBudget.map((bud, index) => {
-    return(
-      <TableBudget 
-        key={index}
-        budget={bud.budget}
-        client={bud.client}
-        price={bud.price}
-        time={bud.time}
-      />
-    )
-  })
+  
+  
+
+  const filter = (key) => {
+    const keyword = key.target.value;
+    let filterBudgetList = [...totalBudget];
+    if(keyword !== '') {
+      const result = filterBudgetList.filter(bud => bud.budget.toLowerCase().startsWith(keyword.toLowerCase()));
+      setFilterTotalBudget(result); 
+    } else {
+      setFilterTotalBudget(filterBudgetList)
+    }
+
+    setKeywordFilter(keyword); 
+  }
+
+  function loadTableBudget(list) {
+    return list.map((bud, index) => {
+      return(
+        <TableBudget 
+          key={index}
+          budget={bud.budget}
+          client={bud.client}
+          price={bud.price}
+          time={bud.time}
+        />
+      )
+    });
+  }
 
   useEffect(() => {
     const price = (formData.web && (500 + (formData.pages * formData.languages * 30))) + (formData.seo && 300) + (formData.ads && 200 ); 
@@ -173,24 +193,37 @@ function App() {
                     Budget name 
                     <ButtonOrder type='button' onClick={() => sortButtonAsc(1)}>↓</ButtonOrder>
                     <ButtonOrder type='button' onClick={() => sortButtonDesc(1)}>↑</ButtonOrder>
+                    <br/>
+                    <KeywordFilter 
+                      type="search"
+                      value={keywordFilter}
+                      onChange={filter}
+                      placeholder="Search..."
+                    />
                   </TableTitles>
                   <TableTitles >Client name 
                     <ButtonOrder type='button' onClick={() => sortButtonAsc(2)}>↓</ButtonOrder>
                     <ButtonOrder type='button' onClick={() => sortButtonDesc(2)}>↑</ButtonOrder>
+                    <br/>
+                    <br/>
                   </TableTitles>
                   <TableTitles >Total price 
                     <ButtonOrder type='button' onClick={() => sortButtonAsc(3)}>↓</ButtonOrder>
                     <ButtonOrder type='button' onClick={() => sortButtonDesc(3)}>↑</ButtonOrder>
+                    <br/>
+                    <br/>
                   </TableTitles>
                   <TableTitles >Date 
                     <ButtonOrder type='button' onClick={() => sortButtonAsc(4)}>↓</ButtonOrder>
                     <ButtonOrder type='button' onClick={() => sortButtonDesc(4)}>↑</ButtonOrder>
+                      <br/>
+                      <br/>
                   </TableTitles>
                   <ButtonReset type='button' onClick={() => sortButtonAsc(0)}>Reset filter</ButtonReset>
                 </tr>    
               </thead>
               <tbody>
-                {newTotalBudget}
+                {keywordFilter === '' ? loadTableBudget(totalBudget) : loadTableBudget(filterTotalBudget)}
               </tbody>              
             </Table> 
           }
