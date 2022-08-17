@@ -162,11 +162,6 @@ export const Table = styled.table`
   height: 200px;
 `
 
-
-export const TableStructure = styled.tr`
-
-`
-
 export const TableTitles = styled.th`
   border-bottom: 2px solid #DF7861;
   color: #DF7861; 
@@ -175,4 +170,36 @@ export const TableTitles = styled.th`
 
 export const TableText = styled.td`
   text-align: center;
+`
+
+export const ButtonOrder = styled.button`
+  margin-left: 5px; 
+  margin-bottom: 5px; 
+  border: none;
+  border-radius: 5px; 
+  color: white; 
+  background-color: #DF7861; 
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  font-size: 11;
+  color: white;
+  text-align: center;
+  font-weight: bold;
+`
+
+export const ButtonReset = styled.button`
+  margin-left: 5px; 
+  margin-top: 8px; 
+  border: solid 3px;
+  border-color: #F5C7A9;
+  border-radius: 5px; 
+  color: white; 
+  background-color: #DF7861; 
+  width: 60px;
+  height: 40px;
+  cursor: pointer;
+  font-size: 11;
+  text-align: center;
+  font-weight: bold;
 `
