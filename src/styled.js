@@ -58,7 +58,6 @@ export const NavLi = styled.li`
 
 export const TextTotalPrice = styled.p`
   font-size: 20px;
-  //color: #DF7861; 
   font-weight: bolder; 
   width: 160px;
   padding: 10px;
@@ -150,7 +149,6 @@ export const BudgetButton = styled.button `
   margin-left: 50px; 
   text-align: center;
   transition: background-color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, box-shadow 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s;
-
   &:hover {
     background-color: #F5C7A9;
   }
@@ -196,8 +194,8 @@ export const ButtonReset = styled.button`
   border-radius: 5px; 
   color: white; 
   background-color: #DF7861; 
-  width: 60px;
-  height: 40px;
+  width: 100px;
+  height: 30px;
   cursor: pointer;
   font-size: 11;
   text-align: center;
@@ -211,9 +209,23 @@ export const KeywordFilter = styled.input`
   border-color: #CFD2CF;
   padding-left: 10px; 
   width: 170px;
-
+  font-size: 12px; 
   &:focus {
     outline: none;
     border-color: #DF7861;
   }
+`
+
+export const ButtonDelete = styled.button`
+  margin-top: 6px; 
+  border: none;
+  border-radius: 5px; 
+  color: white; 
+  background-color: #8CA1A5; 
+  width: 63px;
+  height: 15px;
+  cursor: pointer;
+  font-size: 9px;
+  text-align: center;
+  font-weight: bold;
 `

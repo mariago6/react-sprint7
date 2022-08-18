@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
-import {PanellBox, TextTotalPrice, BudgetButton, Table, TableTitles, ButtonOrder, ButtonReset, KeywordFilter} from '../styled'
+import {PanellBox, TextTotalPrice, BudgetButton, Table, TableTitles, ButtonOrder, ButtonReset, KeywordFilter, ButtonDelete} from '../styled'
 import Panell from '../components/Panell';
 import Navbar from '../components/Navbar';
 import TableBudget from '../components/TableBudget';
@@ -8,13 +8,12 @@ import TableBudget from '../components/TableBudget';
 
 function App() {
   const [formData, setFormData] = useState( 
-    JSON.parse(window.localStorage.getItem('count')) ||
-    {index: 0,budget: '', client: '', web: false, seo: false, ads: false, pages: 1, languages: 1}
+    JSON.parse(localStorage.getItem('count')) ||
+    {index: 0, budget: '', client: '', web: false, seo: false, ads: false, pages: 1, languages: 1}
   ); 
-
   const [totalPrice, setTotalPrice] = useState(0); 
   const [showBudget, setShowBadget] = useState(false); 
-  const [totalBudget, setTotalBudget] = useState([]); 
+  const [totalBudget, setTotalBudget] = useState(JSON.parse(localStorage.getItem("list")) || []); 
   const [filterTotalBudget, setFilterTotalBudget] = useState([]);  
   const [keywordFilter, setKeywordFilter] = useState('');
 
@@ -61,9 +60,6 @@ function App() {
     setTotalBudget(orderBudgetList); 
   }
 
-  
-  
-
   const filter = (key) => {
     const keyword = key.target.value;
     let filterBudgetList = [...totalBudget];
@@ -73,7 +69,6 @@ function App() {
     } else {
       setFilterTotalBudget(filterBudgetList)
     }
-
     setKeywordFilter(keyword); 
   }
 
@@ -91,10 +86,16 @@ function App() {
     });
   }
 
+  function deleteTable() {
+    setTotalBudget(prevTotalBudget => prevTotalBudget = []); 
+  }
+
   useEffect(() => {
     const price = (formData.web && (500 + (formData.pages * formData.languages * 30))) + (formData.seo && 300) + (formData.ads && 200 ); 
     setTotalPrice(prevTotalPrice => prevTotalPrice = price); 
-    window.localStorage.setItem("count", JSON.stringify(formData));
+    localStorage.setItem("count", JSON.stringify(formData));
+    localStorage.setItem("list", JSON.stringify(totalBudget)); 
+    setShowBadget(totalBudget.length === 0 ? false : true); 
   }, [formData, totalBudget]);
 
   return (
@@ -185,47 +186,50 @@ function App() {
           <BudgetButton type='button' onClick={budgetList}>Add budget</BudgetButton>
         </div>
         <div className='table'>
-          {showBudget &&
-            <Table>
-              <thead>
-                <tr>
-                  <TableTitles>
-                    Budget name 
-                    <ButtonOrder type='button' onClick={() => sortButtonAsc(1)}>↓</ButtonOrder>
-                    <ButtonOrder type='button' onClick={() => sortButtonDesc(1)}>↑</ButtonOrder>
-                    <br/>
-                    <KeywordFilter 
-                      type="search"
-                      value={keywordFilter}
-                      onChange={filter}
-                      placeholder="Search..."
-                    />
-                  </TableTitles>
-                  <TableTitles >Client name 
-                    <ButtonOrder type='button' onClick={() => sortButtonAsc(2)}>↓</ButtonOrder>
-                    <ButtonOrder type='button' onClick={() => sortButtonDesc(2)}>↑</ButtonOrder>
-                    <br/>
-                    <br/>
-                  </TableTitles>
-                  <TableTitles >Total price 
-                    <ButtonOrder type='button' onClick={() => sortButtonAsc(3)}>↓</ButtonOrder>
-                    <ButtonOrder type='button' onClick={() => sortButtonDesc(3)}>↑</ButtonOrder>
-                    <br/>
-                    <br/>
-                  </TableTitles>
-                  <TableTitles >Date 
-                    <ButtonOrder type='button' onClick={() => sortButtonAsc(4)}>↓</ButtonOrder>
-                    <ButtonOrder type='button' onClick={() => sortButtonDesc(4)}>↑</ButtonOrder>
+          {showBudget && 
+            <div>
+              <ButtonDelete type='button' onClick={deleteTable}>Delete table</ButtonDelete>
+              <Table>
+                <thead>
+                  <tr>
+                    <TableTitles>
+                      Budget name 
+                      <ButtonOrder type='button' onClick={() => sortButtonAsc(1)}>↓</ButtonOrder>
+                      <ButtonOrder type='button' onClick={() => sortButtonDesc(1)}>↑</ButtonOrder>
+                      <br/>
+                      <KeywordFilter 
+                        type="search"
+                        value={keywordFilter}
+                        onChange={filter}
+                        placeholder="Search..."
+                      />
+                    </TableTitles>
+                    <TableTitles >Client name 
+                      <ButtonOrder type='button' onClick={() => sortButtonAsc(2)}>↓</ButtonOrder>
+                      <ButtonOrder type='button' onClick={() => sortButtonDesc(2)}>↑</ButtonOrder>
                       <br/>
                       <br/>
-                  </TableTitles>
-                  <ButtonReset type='button' onClick={() => sortButtonAsc(0)}>Reset filter</ButtonReset>
-                </tr>    
-              </thead>
-              <tbody>
-                {keywordFilter === '' ? loadTableBudget(totalBudget) : loadTableBudget(filterTotalBudget)}
-              </tbody>              
-            </Table> 
+                    </TableTitles>
+                    <TableTitles >Total price 
+                      <ButtonOrder type='button' onClick={() => sortButtonAsc(3)}>↓</ButtonOrder>
+                      <ButtonOrder type='button' onClick={() => sortButtonDesc(3)}>↑</ButtonOrder>
+                      <br/>
+                      <br/>
+                    </TableTitles>
+                    <TableTitles >Date 
+                      <ButtonOrder type='button' onClick={() => sortButtonAsc(4)}>↓</ButtonOrder>
+                      <ButtonOrder type='button' onClick={() => sortButtonDesc(4)}>↑</ButtonOrder>
+                        <br/>
+                        <br/>
+                    </TableTitles>
+                    <ButtonReset type='button' onClick={() => sortButtonAsc(0)}>Reset filter</ButtonReset>
+                  </tr>    
+                </thead>
+                <tbody>
+                  {keywordFilter === '' ? loadTableBudget(totalBudget) : loadTableBudget(filterTotalBudget)}
+                </tbody>              
+              </Table> 
+            </div>
           }
         </div>
       </main>

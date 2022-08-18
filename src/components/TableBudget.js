@@ -3,7 +3,7 @@ import {TableText} from '../styled'
 
 function TableBudget(props) {
   return(
-    <tr key={props.key}>
+    <tr>
         <TableText>{props.budget}</TableText>
         <TableText>{props.client}</TableText>
         <TableText>{props.price}€</TableText>
