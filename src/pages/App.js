@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
+import { useSearchParams} from 'react-router-dom';
 import {PanellBox, TextTotalPrice, BudgetButton, Table, TableTitles, ButtonOrder, ButtonReset, KeywordFilter, ButtonDelete} from '../styled'
 import Panell from '../components/Panell';
 import Navbar from '../components/Navbar';
@@ -7,15 +8,18 @@ import TableBudget from '../components/TableBudget';
 
 
 function App() {
-  const [formData, setFormData] = useState( 
-    JSON.parse(localStorage.getItem('count')) ||
-    {index: 0, budget: '', client: '', web: false, seo: false, ads: false, pages: 1, languages: 1}
-  ); 
+  const [params, setParams] = useSearchParams();  
+  const URLParams = params && getParams();
+  const localData =  JSON.parse(localStorage.getItem('count')); 
+  const defaultData = {index: 0, budget: '', client: '', web: false, seo: false, ads: false, pages: 1, languages: 1}; 
+  const [formData, setFormData] = useState(URLParams ? URLParams : localData ? localData : defaultData); 
+
   const [totalPrice, setTotalPrice] = useState(0); 
   const [showBudget, setShowBadget] = useState(false); 
   const [totalBudget, setTotalBudget] = useState(JSON.parse(localStorage.getItem("list")) || []); 
   const [filterTotalBudget, setFilterTotalBudget] = useState([]);  
   const [keywordFilter, setKeywordFilter] = useState('');
+
 
   function handleChange(event) {
     const {name, type, value, checked} = event.target;
@@ -90,13 +94,31 @@ function App() {
     setTotalBudget(prevTotalBudget => prevTotalBudget = []); 
   }
 
+  function getParams() {
+    const paramsBudget = {index: 0, budget: '', client: '', 
+      web: params.get('web') === 'true', seo: params.get('seo') === 'true', ads: params.get('ads') === 'true', pages: 1, languages: 1};
+    paramsBudget.pages = (params.get('pages') ? isNaN(parseInt(params.get('pages'))) ? 1 : parseInt(params.get('pages')) : 1);  
+    paramsBudget.languages = (params.get('languages') ? isNaN(parseInt(params.get('languages'))) ? 1 : parseInt(params.get('languages')) : 1); 
+    return paramsBudget; 
+  }
+
+
   useEffect(() => {
     const price = (formData.web && (500 + (formData.pages * formData.languages * 30))) + (formData.seo && 300) + (formData.ads && 200 ); 
     setTotalPrice(prevTotalPrice => prevTotalPrice = price); 
     localStorage.setItem("count", JSON.stringify(formData));
     localStorage.setItem("list", JSON.stringify(totalBudget)); 
     setShowBadget(totalBudget.length === 0 ? false : true); 
+    setParams({
+      web: formData.web, 
+      seo: formData.seo, 
+      ads: formData.ads, 
+      pages: formData.pages, 
+      languages: formData.languages
+    }); 
   }, [formData, totalBudget]);
+
+
 
   return (
     <form>

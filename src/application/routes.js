@@ -2,7 +2,7 @@ import {BrowserRouter ,Route, Routes} from 'react-router-dom';
 import Welcome from '../pages/Welcome';
 import App from '../pages/App';
 
-const AllRoutes = () => (
+const AllRoutes = (props) => (
   <BrowserRouter>
       <Routes>   
           <Route path="/" element={<Welcome />} />
