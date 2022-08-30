@@ -11,3 +11,30 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+.link {
+  text-decoration: none;
+  color: white; 
+}
+
+.app {
+  margin: 30px; 
+  width: 30%;
+  margin-left: 50px;
+}
+
+.panell {
+  display: flex;
+}
+
+.main {
+  display: flex;
+}
+
+.table {
+  margin: 30px; 
+  width: 70%;
+  
+}
+
