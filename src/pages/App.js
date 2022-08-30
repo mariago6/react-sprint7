@@ -9,11 +9,10 @@ import TableBudget from '../components/TableBudget';
 
 function App() {
   const [params, setParams] = useSearchParams();  
-  const URLParams = params && getParams();
+  const URLParams = params.toString().length > 0 ? getParams() : null;
   const localData =  JSON.parse(localStorage.getItem('count')); 
   const defaultData = {index: 0, budget: '', client: '', web: false, seo: false, ads: false, pages: 1, languages: 1}; 
   const [formData, setFormData] = useState(URLParams ? URLParams : localData ? localData : defaultData); 
-
   const [totalPrice, setTotalPrice] = useState(0); 
   const [showBudget, setShowBadget] = useState(false); 
   const [totalBudget, setTotalBudget] = useState(JSON.parse(localStorage.getItem("list")) || []); 
